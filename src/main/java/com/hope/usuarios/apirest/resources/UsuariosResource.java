@@ -24,42 +24,41 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value="/api")
-@Api(value="API REST Usuarios")
+@RequestMapping(value = "/api")
+@Api(value = "API REST Usuarios")
 public class UsuariosResource {
 
 	@Autowired
 	UsuariosRepository usuariosRepository;
-	
-	@ApiOperation(value="Retorna uma lista de usuarios")
+
+	@ApiOperation(value = "Retorna uma lista de usuarios")
 	@GetMapping("/usuarios")
-	public List<Usuarios> listaUsuarios(){
+	public List<Usuarios> listaUsuarios() {
 		return usuariosRepository.findAll();
 	}
-	
-	@ApiOperation(value="Retorna um usuario unico")
+
+	@ApiOperation(value = "Retorna um usuario unico")
 	@GetMapping("/usuario/{id}")
-	public Usuarios listaUsuariosUnico(@PathVariable(value="id") long codigo){
+	public Usuarios listaUsuariosUnico(@PathVariable(value = "id") long codigo) {
 		return usuariosRepository.findById(codigo);
 	}
-	
-	@ApiOperation(value="Salva um usuario")
+
+	@ApiOperation(value = "Salva um usuario")
 	@PostMapping("/usuario")
 	public Usuarios salvaUsuarios(@RequestBody @Valid Usuarios usuarios) {
 		return usuariosRepository.save(usuarios);
 	}
-	
-	@ApiOperation(value="Deleta um usuario")
+
+	@ApiOperation(value = "Deleta um usuario")
 	@DeleteMapping("/usuario")
 	public void deletaUsuarios(@RequestBody @Valid Usuarios usuarios) {
 		usuariosRepository.delete(usuarios);
 	}
-	
-	@ApiOperation(value="Atualiza um usuario")
+
+	@ApiOperation(value = "Atualiza um usuario")
 	@PutMapping("/usuario")
 	public Usuarios atualizaUsuarios(@RequestBody @Valid Usuarios usuarios) {
 		return usuariosRepository.save(usuarios);
 	}
-	 
-	
+
 }
