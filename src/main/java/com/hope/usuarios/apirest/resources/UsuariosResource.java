@@ -29,8 +29,8 @@ public class UsuariosResource {
 	UsuariosRepository ur;
 	
 
-	@ApiOperation(value="Retorna uma lista de usuarios")
-	@GetMapping("/usuarios")
+	@ApiOperation(value="Retorna uma lista de usuários")
+	@GetMapping("/listar")
 	public List<Usuarios> listagem() {
 		return ur.findAll();
 	}
@@ -42,19 +42,19 @@ public class UsuariosResource {
 	}
 
 	@ApiOperation(value="Salva um registro")
-	@PostMapping("/usuarios")
+	@PostMapping("/novo")
 	public Usuarios salvar(@RequestBody Usuarios usuario) {
 		return ur.save(usuario);
 	}
 
 	@ApiOperation(value="Remove um usuario")
-	@DeleteMapping("/usuario")
+	@DeleteMapping("/delete")
 	public void remover(@RequestBody Usuarios usuario) {
 		ur.delete(usuario);
 	}
 
-	@ApiOperation(value="Altera os dados de um usuario")
-	@PutMapping("/usuario")
+	@ApiOperation(value="Altera um registro")
+	@PutMapping("/modifica")
 	public Usuarios alterar(@RequestBody Usuarios usuario) {
 		return ur.save(usuario);
 	}
