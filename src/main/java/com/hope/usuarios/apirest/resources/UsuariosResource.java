@@ -30,13 +30,13 @@ public class UsuariosResource {
 	
 
 	@ApiOperation(value="Retorna uma lista de usuários")
-	@GetMapping("/listar")
+	@GetMapping("/listagem")
 	public List<Usuarios> listagem() {
 		return ur.findAll();
 	}
 
 	@ApiOperation(value="Retorna um usuario")
-	@GetMapping("/usuario/{codigo}")
+	@PostMapping("/usuario")
 	public Usuarios usuario(@PathVariable(value="codigo") long codigo) {
 		return ur.findById(codigo);
 	}
@@ -48,13 +48,13 @@ public class UsuariosResource {
 	}
 
 	@ApiOperation(value="Remove um usuario")
-	@DeleteMapping("/delete")
+	@PostMapping("/delete")
 	public void remover(@RequestBody Usuarios usuario) {
 		ur.delete(usuario);
 	}
 
 	@ApiOperation(value="Altera um registro")
-	@PutMapping("/modifica")
+	@PostMapping("/modifica")
 	public Usuarios alterar(@RequestBody Usuarios usuario) {
 		return ur.save(usuario);
 	}
