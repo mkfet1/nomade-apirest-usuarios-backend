@@ -2,6 +2,8 @@ package com.hope.usuarios.apirest.resources;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hope.usuarios.apirest.models.Usuarios;
@@ -26,37 +29,37 @@ import io.swagger.annotations.ApiOperation;
 public class UsuariosResource {
 
 	@Autowired
-	UsuariosRepository ur;
+	UsuariosRepository usuariosRepository;
 	
-
-	@ApiOperation(value="Retorna uma lista de usuários")
-	@GetMapping("/listagem")
-	public List<Usuarios> listagem() {
-		return ur.findAll();
+	@ApiOperation(value="Retorna uma lista de usuarios")
+	@GetMapping("/usuarios")
+	public List<Usuarios> listaUsuarios(){
+		return usuariosRepository.findAll();
 	}
-
-	@ApiOperation(value="Retorna um usuario")
+	
+	@ApiOperation(value="Retorna um usuario unico")
+	@GetMapping("/usuario/{id}")
+	public Usuarios listaUsuariosUnico(@PathVariable(value="id") long codigo){
+		return usuariosRepository.findById(codigo);
+	}
+	
+	@ApiOperation(value="Salva um usuario")
 	@PostMapping("/usuario")
-	public Usuarios usuario(@PathVariable(value="codigo") long codigo) {
-		return ur.findById(codigo);
+	public Usuarios salvaUsuarios(@RequestBody @Valid Usuarios usuarios) {
+		return usuariosRepository.save(usuarios);
 	}
-
-	@ApiOperation(value="Salva um registro")
-	@PostMapping("/novo")
-	public Usuarios salvar(@RequestBody Usuarios usuario) {
-		return ur.save(usuario);
+	
+	@ApiOperation(value="Deleta um usuario")
+	@DeleteMapping("/usuario")
+	public void deletaUsuarios(@RequestBody @Valid Usuarios usuarios) {
+		usuariosRepository.delete(usuarios);
 	}
-
-	@ApiOperation(value="Remove um usuario")
-	@PostMapping("/delete")
-	public void remover(@RequestBody Usuarios usuario) {
-		ur.delete(usuario);
+	
+	@ApiOperation(value="Atualiza um usuario")
+	@PutMapping("/usuario")
+	public Usuarios atualizaUsuarios(@RequestBody @Valid Usuarios usuarios) {
+		return usuariosRepository.save(usuarios);
 	}
-
-	@ApiOperation(value="Altera um registro")
-	@PostMapping("/modifica")
-	public Usuarios alterar(@RequestBody Usuarios usuario) {
-		return ur.save(usuario);
-	}
+	 
 	
 }
